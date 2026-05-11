@@ -196,6 +196,25 @@ footer{border-top:1px solid var(--border);padding:2rem;display:flex;
   margin:0 auto;flex-wrap:wrap;gap:8px}
 footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
 .ftag{font-family:var(--mono);font-size:.68rem;color:var(--g)}
+/* NATURE IMAGE SECTION */
+.nature-img-section{width:100%;max-width:1100px;margin:0 auto;padding:0 2rem 4rem}
+.nature-img-wrap{position:relative;border-radius:20px;overflow:hidden;
+  border:1px solid var(--border2);box-shadow:0 0 60px rgba(74,210,100,.08)}
+.nature-img{width:100%;height:420px;object-fit:cover;display:block;
+  filter:saturate(1.15) brightness(0.88);
+  transition:transform .6s ease,filter .4s ease}
+.nature-img-wrap:hover .nature-img{transform:scale(1.02);filter:saturate(1.3) brightness(0.95)}
+.nature-img-overlay{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(5,13,7,.85) 0%,rgba(5,13,7,.2) 50%,rgba(5,13,7,.05) 100%);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:1.4rem 1.8rem;pointer-events:none}
+.nature-img-caption{display:flex;align-items:center;gap:8px;
+  font-size:.85rem;font-weight:600;color:var(--t);
+  text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.nature-img-badge{font-family:var(--mono);font-size:.65rem;font-weight:700;
+  color:var(--g);background:rgba(5,13,7,.75);border:1px solid var(--border2);
+  padding:4px 12px;border-radius:99px;letter-spacing:.06em;white-space:nowrap;
+  backdrop-filter:blur(8px)}
 @media(max-width:720px){
   .pgrid,.cgrid{grid-template-columns:1fr}
   .flow,.dash-grid{grid-template-columns:1fr 1fr}
@@ -203,6 +222,7 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
   .fs{border-right:none;border-bottom:1px solid var(--border)}
   .prow{grid-template-columns:1fr;gap:4px}
   .nav-links{display:none}
+  .nature-img{height:220px}
 }
 </style>
 </head>
@@ -212,7 +232,8 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
 <div class="toast" id="toast">Copied!</div>
 
 <nav class="nav">
-  <div class="nav-logo" onclick="goTo('home')">Aqua<span>Road</span></div>
+  <div class="nav-logo" onclick="goTo('home')">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:5px;margin-top:-2px" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.82 19.07M17 8C17 8 20 14 14 18M17 8C17 8 12 6 7 10" stroke="#4ad264" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.82 19.07C4.5 16.6 7 12 14 18" stroke="#4ad264" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/></svg>Aqua<span>Road</span></div>
   <div class="nav-links">
     <button class="nav-btn active" onclick="goTo('home')">Home</button>
     <button class="nav-btn" onclick="goTo('circuit')">Circuit</button>
@@ -249,6 +270,18 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
       <div><div class="stat-num">3</div><div class="stat-lbl">Filter stages</div></div>
       <div><div class="stat-num">5</div><div class="stat-lbl">Sensor inputs</div></div>
       <div><div class="stat-num">12V</div><div class="stat-lbl">System power</div></div>
+    </div>
+  </div>
+  <div class="nature-img-section">
+    <div class="nature-img-wrap">
+      <img src="aquaroad_nature.png" alt="AquaRoad — water sprinklers on green urban road" class="nature-img"/>
+      <div class="nature-img-overlay">
+        <div class="nature-img-caption">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M17 8C8 10 5.9 16.17 3.82 19.07M17 8C17 8 20 14 14 18M17 8C17 8 12 6 7 10" stroke="#4ad264" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Nature-driven innovation &mdash; wastewater meets the road
+        </div>
+        <div class="nature-img-badge">Asian Hackathon 2026</div>
+      </div>
     </div>
   </div>
   <hr class="dv"/>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,13 +22,16 @@ body{background:#050d07;color:#cee8d4;font-family:'Outfit',sans-serif;overflow-x
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:#0a1a0d}
 ::-webkit-scrollbar-thumb{background:#1e4025;border-radius:3px}
-.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(74,210,100,.025) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(74,210,100,.025) 1px,transparent 1px);
-  background-size:52px 52px}
-.bg-glow{position:fixed;width:800px;height:800px;border-radius:50%;
-  background:radial-gradient(circle,rgba(74,210,100,.04) 0%,transparent 70%);
-  top:-200px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bg-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(74,210,100,.07) 0%,transparent 70%)}
+.nav-logo .leaf-icon{display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;background:linear-gradient(135deg,#2d8c45,#4ad264);
+  border-radius:50% 0 50% 0;transform:rotate(-15deg);flex-shrink:0;
+  box-shadow:0 0 12px rgba(74,210,100,.5)}
+.nav-logo .leaf-icon svg{transform:rotate(15deg)}
+.nav-logo{font-size:1.05rem;font-weight:800;color:var(--g);letter-spacing:-.02em;cursor:pointer;
+  display:flex;align-items:center;gap:7px}
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;
   justify-content:space-between;padding:.75rem 2rem;
@@ -196,25 +198,6 @@ footer{border-top:1px solid var(--border);padding:2rem;display:flex;
   margin:0 auto;flex-wrap:wrap;gap:8px}
 footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
 .ftag{font-family:var(--mono);font-size:.68rem;color:var(--g)}
-/* NATURE IMAGE SECTION */
-.nature-img-section{width:100%;max-width:1100px;margin:0 auto;padding:0 2rem 4rem}
-.nature-img-wrap{position:relative;border-radius:20px;overflow:hidden;
-  border:1px solid var(--border2);box-shadow:0 0 60px rgba(74,210,100,.08)}
-.nature-img{width:100%;height:420px;object-fit:cover;display:block;
-  filter:saturate(1.15) brightness(0.88);
-  transition:transform .6s ease,filter .4s ease}
-.nature-img-wrap:hover .nature-img{transform:scale(1.02);filter:saturate(1.3) brightness(0.95)}
-.nature-img-overlay{position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(5,13,7,.85) 0%,rgba(5,13,7,.2) 50%,rgba(5,13,7,.05) 100%);
-  display:flex;align-items:flex-end;justify-content:space-between;
-  padding:1.4rem 1.8rem;pointer-events:none}
-.nature-img-caption{display:flex;align-items:center;gap:8px;
-  font-size:.85rem;font-weight:600;color:var(--t);
-  text-shadow:0 1px 8px rgba(0,0,0,.7)}
-.nature-img-badge{font-family:var(--mono);font-size:.65rem;font-weight:700;
-  color:var(--g);background:rgba(5,13,7,.75);border:1px solid var(--border2);
-  padding:4px 12px;border-radius:99px;letter-spacing:.06em;white-space:nowrap;
-  backdrop-filter:blur(8px)}
 @media(max-width:720px){
   .pgrid,.cgrid{grid-template-columns:1fr}
   .flow,.dash-grid{grid-template-columns:1fr 1fr}
@@ -222,18 +205,24 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
   .fs{border-right:none;border-bottom:1px solid var(--border)}
   .prow{grid-template-columns:1fr;gap:4px}
   .nav-links{display:none}
-  .nature-img{height:220px}
 }
 </style>
 </head>
 <body>
-<div class="bg-grid"></div>
-<div class="bg-glow"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="bg-overlay"></div>
 <div class="toast" id="toast">Copied!</div>
 
 <nav class="nav">
   <div class="nav-logo" onclick="goTo('home')">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:5px;margin-top:-2px" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.82 19.07M17 8C17 8 20 14 14 18M17 8C17 8 12 6 7 10" stroke="#4ad264" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.82 19.07C4.5 16.6 7 12 14 18" stroke="#4ad264" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/></svg>Aqua<span>Road</span></div>
+    <div class="leaf-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+        <path d="M17 8C8 10 5.9 16.17 3.82 19.93L5.71 21L6 20.24C6.53 19 7 18 9 17C11 16 14 16 17 8Z"/>
+        <path d="M3.82 19.93C5 16 7 10 17 8C14 14 11 14 9 17" stroke="white" stroke-width="1" fill="none" opacity=".6"/>
+      </svg>
+    </div>
+    Aqua<span>Road</span>
+  </div>
   <div class="nav-links">
     <button class="nav-btn active" onclick="goTo('home')">Home</button>
     <button class="nav-btn" onclick="goTo('circuit')">Circuit</button>
@@ -251,7 +240,7 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
   <div class="hero">
     <div class="tag"><span class="dot"></span>Smart Urban Infrastructure</div>
     <h1>Waste<span class="accent">water</span><br><span class="mute">meets</span> the road</h1>
-    <p class="hero-sub">Collect wastewater from schools and hospitals. Filter it through three stages. Sprinkle it on roads to suppress dust and cool urban heat — simultaneously.</p>
+    <p class="hero-sub">Collect wastewater from urban sources, industries, and public institutions. Filter it through three stages. Sprinkle it on roads to suppress dust and cool urban heat — simultaneously.</p>
     <div class="pills">
       <span class="pill pg-pill">Dust suppression</span>
       <span class="pill pa-pill">Urban heat reduction</span>
@@ -272,27 +261,15 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
       <div><div class="stat-num">12V</div><div class="stat-lbl">System power</div></div>
     </div>
   </div>
-  <div class="nature-img-section">
-    <div class="nature-img-wrap">
-      <img src="aquaroad_nature.png" alt="AquaRoad — water sprinklers on green urban road" class="nature-img"/>
-      <div class="nature-img-overlay">
-        <div class="nature-img-caption">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M17 8C8 10 5.9 16.17 3.82 19.07M17 8C17 8 20 14 14 18M17 8C17 8 12 6 7 10" stroke="#4ad264" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Nature-driven innovation &mdash; wastewater meets the road
-        </div>
-        <div class="nature-img-badge">Asian Hackathon 2026</div>
-      </div>
-    </div>
-  </div>
   <hr class="dv"/>
   <div style="max-width:1100px;margin:0 auto;padding:4rem 2rem">
     <div class="slabel">The problem</div>
     <h2>Three urban crises, one solution</h2>
     <p class="sintro">Asian cities face mounting pressure from dusty roads, extreme surface heat, and untreated wastewater. We turn the problem into its own answer.</p>
     <div class="pgrid">
-      <div class="pcard"><div class="picon" style="background:rgba(240,180,41,.1)">🌫</div><h3>Dusty roads</h3><p>Unpaved roads generate fine particulate matter that harms respiratory health, especially near schools and hospitals.</p></div>
+      <div class="pcard"><div class="picon" style="background:rgba(240,180,41,.1)">🌫</div><h3>Dusty roads</h3><p>Unpaved roads generate fine particulate matter that harms respiratory health, especially in densely populated urban areas.</p></div>
       <div class="pcard"><div class="picon" style="background:rgba(251,113,133,.1)">🌡</div><h3>Urban heat island</h3><p>Asphalt raises local temperatures 3–8 °C. Wet surfaces cool naturally through evaporation — for free.</p></div>
-      <div class="pcard"><div class="picon" style="background:rgba(54,197,240,.1)">💧</div><h3>Wasted wastewater</h3><p>Schools and hospitals discharge grey water that flows untreated into drains — a free resource wasted every day.</p></div>
+      <div class="pcard"><div class="picon" style="background:rgba(54,197,240,.1)">💧</div><h3>Wasted wastewater</h3><p>Urban institutions discharge grey water that flows untreated into drains every day — a free resource going completely to waste.</p></div>
     </div>
   </div>
   <hr class="dv"/>
@@ -907,7 +884,10 @@ void serveDashboard() {
   h += "<div class='val " + String(gSpray?"on":"off") + "'>";
   h += String(gSpray ? "SPRAYING" : "STANDBY") + "</div></div>";
   h += "<p style='color:#3a6045;font-size:.75rem'>Auto-refreshes every 3s</p>";
-  h += "</body></html>";
+  h += "
+
+
+</body></html>";
   server.send(200, "text/html", h);
 }`
 };
@@ -959,5 +939,369 @@ tabs.forEach((t,i)=>{
   </div>`;
 });
 </script>
+
+<script>
+// ── ANIMATED BACKGROUND CANVAS ──────────────────────────────────────────
+(function(){
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles=[], drops=[], leaves=[];
+  
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // ── Water drops ──────────────────────────────────────────────────────
+  function Drop(x,y){
+    this.x = x || Math.random()*W;
+    this.y = y || Math.random()*-H;
+    this.len = 8 + Math.random()*14;
+    this.speed = 1.5 + Math.random()*2.5;
+    this.opacity = 0.04 + Math.random()*0.1;
+    this.width = 0.5 + Math.random()*0.8;
+  }
+  Drop.prototype.update = function(){
+    this.y += this.speed;
+    if(this.y > H + this.len){
+      this.y = -this.len;
+      this.x = Math.random()*W;
+    }
+  };
+  Drop.prototype.draw = function(){
+    ctx.save();
+    ctx.strokeStyle = `rgba(74,210,100,${this.opacity})`;
+    ctx.lineWidth = this.width;
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x - 1, this.y + this.len);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // ── Floating particles ───────────────────────────────────────────────
+  function Particle(){
+    this.reset();
+  }
+  Particle.prototype.reset = function(){
+    this.x = Math.random()*W;
+    this.y = Math.random()*H;
+    this.r = 0.5 + Math.random()*2;
+    this.vx = (Math.random()-.5)*0.3;
+    this.vy = -0.1 - Math.random()*0.4;
+    this.opacity = 0.05 + Math.random()*0.18;
+    this.color = Math.random()<0.6?
+      `rgba(74,210,100,${this.opacity})`:
+      Math.random()<0.5?
+        `rgba(54,197,240,${this.opacity})`:
+        `rgba(240,180,41,${this.opacity})`;
+  };
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.opacity -= 0.0003;
+    if(this.y < -10 || this.opacity < 0.01) this.reset();
+  };
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // ── Floating leaves ──────────────────────────────────────────────────
+  function Leaf(){
+    this.reset();
+  }
+  Leaf.prototype.reset = function(){
+    this.x = Math.random()*W;
+    this.y = H + 20;
+    this.size = 6 + Math.random()*10;
+    this.speedY = 0.3 + Math.random()*0.6;
+    this.speedX = (Math.random()-.5)*0.5;
+    this.angle = Math.random()*Math.PI*2;
+    this.spin = (Math.random()-.5)*0.015;
+    this.opacity = 0.06 + Math.random()*0.14;
+    this.color = Math.random()<0.7?
+      `rgba(74,210,100,${this.opacity})`:
+      `rgba(46,160,80,${this.opacity})`;
+  };
+  Leaf.prototype.update = function(){
+    this.y -= this.speedY;
+    this.x += Math.sin(this.angle)*this.speedX;
+    this.angle += this.spin;
+    if(this.y < -30) this.reset();
+  };
+  Leaf.prototype.draw = function(){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    const s = this.size;
+    // leaf shape: two bezier curves
+    ctx.moveTo(0, -s);
+    ctx.bezierCurveTo(s*.7, -s*.4, s*.7, s*.4, 0, s);
+    ctx.bezierCurveTo(-s*.7, s*.4, -s*.7, -s*.4, 0, -s);
+    ctx.fill();
+    // midrib
+    ctx.strokeStyle = this.color.replace(/[\d.]+\)$/, '0.3)');
+    ctx.lineWidth = 0.6;
+    ctx.beginPath();
+    ctx.moveTo(0, -s);
+    ctx.lineTo(0, s);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // ── Ripple circles ───────────────────────────────────────────────────
+  function Ripple(x,y){
+    this.x = x; this.y = y;
+    this.r = 1; this.max = 40 + Math.random()*60;
+    this.opacity = 0.15;
+    this.speed = 0.4 + Math.random()*0.4;
+  }
+  Ripple.prototype.update = function(){
+    this.r += this.speed;
+    this.opacity = 0.15*(1 - this.r/this.max);
+    return this.r < this.max;
+  };
+  Ripple.prototype.draw = function(){
+    ctx.save();
+    ctx.strokeStyle = `rgba(74,210,100,${this.opacity})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // ── Grid lines ───────────────────────────────────────────────────────
+  function drawGrid(){
+    ctx.strokeStyle = 'rgba(74,210,100,0.025)';
+    ctx.lineWidth = 1;
+    const sz = 52;
+    for(let x=0; x<W; x+=sz){
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+    }
+    for(let y=0; y<H; y+=sz){
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+    }
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────────
+  const NUM_DROPS = 80, NUM_PARTICLES = 60, NUM_LEAVES = 18;
+  let ripples = [];
+  for(let i=0;i<NUM_DROPS;i++)     drops.push(new Drop());
+  for(let i=0;i<NUM_PARTICLES;i++) particles.push(new Particle());
+  for(let i=0;i<NUM_LEAVES;i++){
+    const l = new Leaf();
+    l.y = Math.random()*H; // scatter on load
+    leaves.push(l);
+  }
+
+  // Spawn ripple occasionally
+  setInterval(()=>{
+    ripples.push(new Ripple(Math.random()*W, Math.random()*H));
+  }, 1200);
+
+  // ── Render loop ──────────────────────────────────────────────────────
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawGrid();
+    drops.forEach(d=>{d.update();d.draw();});
+    particles.forEach(p=>{p.update();p.draw();});
+    leaves.forEach(l=>{l.update();l.draw();});
+    ripples = ripples.filter(r=>{
+      const alive = r.update();
+      if(alive) r.draw();
+      return alive;
+    });
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+</script>
+
 </body>
 </html>
+
+<script>
+(function(){
+  var canvas = document.getElementById('bg-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H;
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // ── Water drops ──
+  function Drop(){
+    this.x = Math.random()*window.innerWidth;
+    this.y = Math.random()*-window.innerHeight;
+    this.len = 8 + Math.random()*14;
+    this.speed = 1.5 + Math.random()*2.5;
+    this.op = 0.04 + Math.random()*0.09;
+    this.w = 0.5 + Math.random()*0.8;
+  }
+  Drop.prototype.update = function(){
+    this.y += this.speed;
+    if(this.y > H + this.len){ this.y = -this.len; this.x = Math.random()*W; }
+  };
+  Drop.prototype.draw = function(){
+    ctx.save();
+    ctx.strokeStyle = 'rgba(74,210,100,'+this.op+')';
+    ctx.lineWidth = this.w;
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x-1, this.y+this.len);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // ── Floating particles ──
+  function Particle(){
+    this.reset();
+  }
+  Particle.prototype.reset = function(){
+    this.x = Math.random()*W;
+    this.y = H + 10;
+    this.r = 0.6 + Math.random()*2;
+    this.vx = (Math.random()-0.5)*0.3;
+    this.vy = 0.15 + Math.random()*0.5;
+    this.op = 0.06 + Math.random()*0.16;
+    var rnd = Math.random();
+    if(rnd < 0.6) this.col = '74,210,100';
+    else if(rnd < 0.8) this.col = '54,197,240';
+    else this.col = '240,180,41';
+  };
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y -= this.vy;
+    this.op -= 0.0003;
+    if(this.y < -10 || this.op < 0.01) this.reset();
+  };
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.fillStyle = 'rgba('+this.col+','+this.op+')';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  // ── Floating leaves ──
+  function Leaf(){
+    this.reset();
+  }
+  Leaf.prototype.reset = function(){
+    this.x = Math.random()*W;
+    this.y = H + 20;
+    this.size = 7 + Math.random()*10;
+    this.speedY = 0.3 + Math.random()*0.6;
+    this.speedX = (Math.random()-0.5)*0.4;
+    this.angle = Math.random()*Math.PI*2;
+    this.spin = (Math.random()-0.5)*0.014;
+    this.op = 0.07 + Math.random()*0.13;
+    this.col = Math.random()<0.7 ? '74,210,100' : '46,160,80';
+  };
+  Leaf.prototype.update = function(){
+    this.y -= this.speedY;
+    this.x += Math.sin(this.angle)*this.speedX;
+    this.angle += this.spin;
+    if(this.y < -30) this.reset();
+  };
+  Leaf.prototype.draw = function(){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = 'rgba('+this.col+','+this.op+')';
+    ctx.beginPath();
+    var s = this.size;
+    ctx.moveTo(0,-s);
+    ctx.bezierCurveTo(s*0.7,-s*0.4, s*0.7,s*0.4, 0,s);
+    ctx.bezierCurveTo(-s*0.7,s*0.4, -s*0.7,-s*0.4, 0,-s);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba('+this.col+',0.2)';
+    ctx.lineWidth = 0.6;
+    ctx.beginPath();
+    ctx.moveTo(0,-s); ctx.lineTo(0,s);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // ── Ripples ──
+  function Ripple(){
+    this.x = Math.random()*W;
+    this.y = Math.random()*H;
+    this.r = 1;
+    this.max = 40 + Math.random()*70;
+    this.speed = 0.4 + Math.random()*0.4;
+  }
+  Ripple.prototype.update = function(){
+    this.r += this.speed;
+    return this.r < this.max;
+  };
+  Ripple.prototype.draw = function(){
+    var op = 0.12*(1 - this.r/this.max);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(74,210,100,'+op+')';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  // ── Grid ──
+  function drawGrid(){
+    ctx.strokeStyle = 'rgba(74,210,100,0.022)';
+    ctx.lineWidth = 1;
+    var sz = 52;
+    for(var x=0; x<W; x+=sz){
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+    }
+    for(var y=0; y<H; y+=sz){
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+    }
+  }
+
+  // ── Init ──
+  var drops=[], parts=[], leaves=[], ripples=[];
+  for(var i=0;i<90;i++) drops.push(new Drop());
+  for(var i=0;i<55;i++) parts.push(new Particle());
+  for(var i=0;i<20;i++){
+    var l=new Leaf();
+    l.y = Math.random()*H;
+    leaves.push(l);
+  }
+  setInterval(function(){
+    ripples.push(new Ripple());
+  }, 1100);
+
+  // ── Render ──
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawGrid();
+    for(var i=0;i<drops.length;i++){ drops[i].update(); drops[i].draw(); }
+    for(var i=0;i<parts.length;i++){ parts[i].update(); parts[i].draw(); }
+    for(var i=0;i<leaves.length;i++){ leaves[i].update(); leaves[i].draw(); }
+    ripples = ripples.filter(function(r){
+      var alive = r.update();
+      if(alive) r.draw();
+      return alive;
+    });
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+</script>

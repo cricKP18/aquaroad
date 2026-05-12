@@ -25,13 +25,20 @@ body{background:#050d07;color:#cee8d4;font-family:'Outfit',sans-serif;overflow-x
 #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .bg-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(74,210,100,.07) 0%,transparent 70%)}
-.nav-logo .leaf-icon{display:inline-flex;align-items:center;justify-content:center;
-  width:26px;height:26px;background:linear-gradient(135deg,#2d8c45,#4ad264);
-  border-radius:50% 0 50% 0;transform:rotate(-15deg);flex-shrink:0;
-  box-shadow:0 0 12px rgba(74,210,100,.5)}
-.nav-logo .leaf-icon svg{transform:rotate(15deg)}
-.nav-logo{font-size:1.05rem;font-weight:800;color:var(--g);letter-spacing:-.02em;cursor:pointer;
-  display:flex;align-items:center;gap:7px}
+.nav-logo{cursor:pointer;display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{flex-shrink:0;filter:drop-shadow(0 0 8px rgba(74,210,100,.5));
+  transition:filter .3s,transform .3s}
+.nav-logo:hover .logo-icon{filter:drop-shadow(0 0 14px rgba(74,210,100,.8));transform:scale(1.08)}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-aqua{font-size:1.1rem;font-weight:900;color:var(--g);letter-spacing:-.03em;
+  background:linear-gradient(90deg,#4ad264,#36c5f0);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text}
+.logo-road{font-size:1.1rem;font-weight:900;color:var(--t);letter-spacing:-.03em;
+  margin-left:1px}
+.logo-aqua,.logo-road{display:inline}
+.logo-text>div:first-child{display:flex;align-items:baseline;gap:1px}
+.logo-tagline{font-family:var(--mono);font-size:.48rem;color:var(--t3);
+  letter-spacing:.08em;text-transform:uppercase;margin-top:1px}
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;
   justify-content:space-between;padding:.75rem 2rem;
@@ -198,13 +205,91 @@ footer{border-top:1px solid var(--border);padding:2rem;display:flex;
   margin:0 auto;flex-wrap:wrap;gap:8px}
 footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
 .ftag{font-family:var(--mono);font-size:.68rem;color:var(--g)}
+
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:2.5rem}
+.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:800px;margin:0 auto 2rem}
+.scale-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px;margin:0 auto}
 @media(max-width:720px){
-  .pgrid,.cgrid{grid-template-columns:1fr}
-  .flow,.dash-grid{grid-template-columns:1fr 1fr}
+  .cost-grid{grid-template-columns:1fr}
+  .scale-grid{grid-template-columns:1fr}
+  .demo-grid{grid-template-columns:1fr}.impact-grid{grid-template-columns:1fr}}
+/* ── CENTERED LAYOUT ── */
+.hero{align-items:center;text-align:center}
+.hero h1{text-align:center}
+.hero .hero-sub{text-align:center;margin-left:auto;margin-right:auto}
+.hero .pills{justify-content:center}
+.hero .btn-row{justify-content:center}
+.hero .stats{justify-content:center}
+.hero .tag{justify-content:center}
+.slabel{justify-content:center}
+.slabel::before{display:none}
+h2{text-align:center}
+.sintro{text-align:center;margin-left:auto;margin-right:auto}
+.fstep{align-items:center;text-align:center}
+.pcard{text-align:center}
+.picon{margin-left:auto;margin-right:auto}
+.pg{text-align:center}
+.circuit-hdr{justify-content:center;text-align:center}
+.plist{text-align:left}
+.prow{text-align:left}
+.cgrid .ccard{text-align:left}
+.log-panel{text-align:left}
+pre.code{text-align:left}
+.pin-table{text-align:left}
+.dash-card{text-align:center}
+.status-bar{justify-content:center}
+.btn-row{justify-content:center}
+.dash-grid{margin-left:auto;margin-right:auto}
+
+/* ── MOBILE HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--t2);
+  border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:58px;left:0;right:0;z-index:490;
+  background:rgba(5,13,7,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:1rem;flex-direction:column;gap:4px}
+.mobile-menu.open{display:flex}
+.mobile-menu .nav-btn{width:100%;text-align:center;padding:.7rem;font-size:.85rem}
+
+/* ── FULL RESPONSIVE ── */
+@media(max-width:900px){
+  .dash-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .pgrid{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .dash-grid{grid-template-columns:1fr 1fr}
   .frow{flex-direction:column}
   .fs{border-right:none;border-bottom:1px solid var(--border)}
   .prow{grid-template-columns:1fr;gap:4px}
   .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav-badge{display:none}
+  h1{font-size:clamp(2rem,8vw,3.2rem)}
+  h2{font-size:clamp(1.4rem,5vw,2rem)}
+  .hero{padding:3rem 1.2rem 4rem}
+  .pg{padding:3rem 1.2rem 4rem}
+  .stats{gap:1.5rem;justify-content:center}
+  .btn-row{flex-direction:column;align-items:center}
+  .btn-p,.btn-o{width:100%;text-align:center}
+  .prow{grid-template-columns:1fr}
+  .plib{font-size:.6rem}
+  pre.code{font-size:.68rem;padding:1rem}
+  .circuit-hdr h3{font-size:.75rem}
+  footer{flex-direction:column;text-align:center;gap:6px}
+  .status-bar{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:420px){
+  .flow{grid-template-columns:1fr}
+  .dash-grid{grid-template-columns:1fr}
+  .pills{justify-content:center}
+  h1{font-size:2rem}
 }
 </style>
 </head>
@@ -215,13 +300,38 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
 
 <nav class="nav">
   <div class="nav-logo" onclick="goTo('home')">
-    <div class="leaf-icon">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-        <path d="M17 8C8 10 5.9 16.17 3.82 19.93L5.71 21L6 20.24C6.53 19 7 18 9 17C11 16 14 16 17 8Z"/>
-        <path d="M3.82 19.93C5 16 7 10 17 8C14 14 11 14 9 17" stroke="white" stroke-width="1" fill="none" opacity=".6"/>
+    <div class="logo-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer glow ring -->
+        <circle cx="16" cy="16" r="15" fill="url(#logoGrad)" opacity="0.15"/>
+        <!-- Water drop shape -->
+        <path d="M16 4 C16 4 8 13 8 18 C8 22.4 11.6 26 16 26 C20.4 26 24 22.4 24 18 C24 13 16 4 16 4Z"
+              fill="url(#dropGrad)" opacity="0.9"/>
+        <!-- Leaf vein inside drop -->
+        <path d="M16 8 C16 8 12 14 12 18 C12 18 14 16 16 15 C18 16 20 18 20 18 C20 14 16 8 16 8Z"
+              fill="white" opacity="0.25"/>
+        <!-- Center stem line -->
+        <line x1="16" y1="10" x2="16" y2="23" stroke="white" stroke-width="0.8" opacity="0.4"/>
+        <!-- Ripple arc at bottom -->
+        <path d="M10 27 Q16 24 22 27" stroke="#4ad264" stroke-width="1.2" fill="none" opacity="0.6"/>
+        <path d="M12 29 Q16 27 20 29" stroke="#4ad264" stroke-width="0.8" fill="none" opacity="0.35"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4ad264"/>
+            <stop offset="100%" stop-color="#36c5f0"/>
+          </linearGradient>
+          <linearGradient id="dropGrad" x1="0.3" y1="0" x2="0.7" y2="1">
+            <stop offset="0%" stop-color="#4ad264"/>
+            <stop offset="60%" stop-color="#2d9e50"/>
+            <stop offset="100%" stop-color="#1a7a8a"/>
+          </linearGradient>
+        </defs>
       </svg>
     </div>
-    Aqua<span>Road</span>
+    <div class="logo-text">
+      <div style="display:flex;align-items:baseline"><span class="logo-aqua">Aqua</span><span class="logo-road">Road</span></div>
+      <div class="logo-tagline">wastewater · roads · cities</div>
+    </div>
   </div>
   <div class="nav-links">
     <button class="nav-btn active" onclick="goTo('home')">Home</button>
@@ -231,14 +341,40 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
     <button class="nav-btn" onclick="goTo('parts')">Parts</button>
   </div>
   <div class="nav-badge">Asian Hackathon 2026</div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="nav-btn" onclick="goTo('home');closeMenu()">Home</button>
+  <button class="nav-btn" onclick="goTo('circuit');closeMenu()">Circuit</button>
+  <button class="nav-btn" onclick="goTo('dashboard');closeMenu()">Dashboard</button>
+  <button class="nav-btn" onclick="goTo('code');closeMenu()">Code</button>
+  <button class="nav-btn" onclick="goTo('parts');closeMenu()">Parts</button>
+</div>
 
 <div class="page">
 
 <!-- HOME -->
 <div id="pg-home" class="pg active" style="padding:0">
   <div class="hero">
-    <div class="tag"><span class="dot"></span>Smart Urban Infrastructure</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:1.5rem;justify-content:center">
+    <div style="filter:drop-shadow(0 0 16px rgba(74,210,100,.6))">
+      <svg width="56" height="56" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="15" fill="url(#hGrad)" opacity="0.12"/>
+        <path d="M16 3 C16 3 7 13 7 18.5 C7 23.3 11.1 27 16 27 C20.9 27 25 23.3 25 18.5 C25 13 16 3 16 3Z" fill="url(#hDrop)"/>
+        <path d="M16 7 C16 7 11 14.5 11 18.5 C11 18.5 13.5 16.5 16 15.5 C18.5 16.5 21 18.5 21 18.5 C21 14.5 16 7 16 7Z" fill="white" opacity="0.2"/>
+        <line x1="16" y1="9" x2="16" y2="24" stroke="white" stroke-width="0.9" opacity="0.35"/>
+        <path d="M9 28 Q16 25 23 28" stroke="#4ad264" stroke-width="1.3" fill="none" opacity="0.7"/>
+        <path d="M11 30 Q16 28 21 30" stroke="#36c5f0" stroke-width="0.8" fill="none" opacity="0.4"/>
+        <defs>
+          <linearGradient id="hGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4ad264"/><stop offset="100%" stop-color="#36c5f0"/></linearGradient>
+          <linearGradient id="hDrop" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#5de07a"/><stop offset="55%" stop-color="#2d9e50"/><stop offset="100%" stop-color="#1a7a8a"/></linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="tag" style="margin-bottom:0"><span class="dot"></span>Smart Urban Infrastructure</div>
+  </div>
     <h1>Waste<span class="accent">water</span><br><span class="mute">meets</span> the road</h1>
     <p class="hero-sub">Collect wastewater from urban sources, industries, and public institutions. Filter it through three stages. Sprinkle it on roads to suppress dust and cool urban heat — simultaneously.</p>
     <div class="pills">
@@ -288,6 +424,346 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
       <div class="fs"><div class="fsn">Stage 02</div><h4>Activated carbon</h4><p>Absorbs dissolved chemicals, chlorine, and odour compounds.</p></div>
       <div class="fs"><div class="fsn">Stage 03</div><h4>Sand &amp; gravel bed</h4><p>Final polish. Removes fine suspended particles.</p></div>
       <div class="fs"><div class="fsn">Output check</div><h4>Turbidity sensor</h4><p>Confirms water clarity at output. ESP32 blocks valve if below threshold.</p></div>
+    </div>
+  </div>
+
+  <!-- IMPACT SECTION -->
+  <hr class="dv"/>
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 2rem;text-align:center">
+    <div class="slabel" style="justify-content:center">Real-world impact</div>
+    <h2>Why AquaRoad matters</h2>
+    <p class="sintro" style="margin:0 auto 2.5rem">Every litre of filtered wastewater sprinkled on roads saves fresh water, cools the city, and clears the air — simultaneously.</p>
+    <div id="impact-grid" class="impact-grid">
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center">
+        <div style="font-size:2.4rem;font-weight:900;color:var(--g);line-height:1;margin-bottom:.4rem">40%</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem">Dust reduction</div>
+        <p style="font-size:.78rem;color:var(--t2);line-height:1.6">Water-sprinkled roads cut airborne particulate matter by up to 40% in urban test zones.</p>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center">
+        <div style="font-size:2.4rem;font-weight:900;color:var(--b);line-height:1;margin-bottom:.4rem">8°C</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem">Surface cooling</div>
+        <p style="font-size:.78rem;color:var(--t2);line-height:1.6">Evaporative cooling from wet roads can reduce surface temperature by up to 8 °C.</p>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center">
+        <div style="font-size:2.4rem;font-weight:900;color:var(--a);line-height:1;margin-bottom:.4rem">0L</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem">Fresh water used</div>
+        <p style="font-size:.78rem;color:var(--t2);line-height:1.6">100% recycled grey water — zero fresh water consumed. Circular economy in action.</p>
+      </div>
+    </div>
+    <!-- SDG badges -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:1rem">
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(54,197,240,.1);border:1px solid rgba(54,197,240,.25);border-radius:99px;padding:6px 14px">
+        <span style="font-size:1rem">🌊</span>
+        <span style="font-family:var(--mono);font-size:.68rem;color:var(--b)">SDG 6 — Clean Water</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.25);border-radius:99px;padding:6px 14px">
+        <span style="font-size:1rem">🏙️</span>
+        <span style="font-family:var(--mono);font-size:.68rem;color:var(--a)">SDG 11 — Sustainable Cities</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(74,210,100,.1);border:1px solid rgba(74,210,100,.25);border-radius:99px;padding:6px 14px">
+        <span style="font-size:1rem">♻️</span>
+        <span style="font-family:var(--mono);font-size:.68rem;color:var(--g)">SDG 12 — Responsible Consumption</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(74,210,100,.1);border:1px solid rgba(74,210,100,.25);border-radius:99px;padding:6px 14px">
+        <span style="font-size:1rem">🌿</span>
+        <span style="font-family:var(--mono);font-size:.68rem;color:var(--g)">SDG 13 — Climate Action</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- VIDEO SECTION -->
+  <hr class="dv"/>
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 2rem;text-align:center">
+    <div class="slabel" style="justify-content:center">Prototype demo</div>
+    <h2>Watch it in action</h2>
+    <p class="sintro" style="margin:0 auto 2rem">A 60-second walkthrough of our working prototype — from wastewater collection to road sprinkling.</p>
+    <div style="background:var(--surf);border:1px solid var(--border);border-radius:16px;overflow:hidden;max-width:720px;margin:0 auto">
+      <div style="position:relative;padding-bottom:56.25%;background:#040c06;display:flex;align-items:center;justify-content:center">
+        <div id="video-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;cursor:pointer" onclick="playVideo()">
+          <div style="width:72px;height:72px;background:rgba(74,210,100,.15);border:2px solid var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s" onmouseover="this.style.background='rgba(74,210,100,.25)'" onmouseout="this.style.background='rgba(74,210,100,.15)'">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <polygon points="6,3 20,12 6,21" fill="#4ad264"/>
+            </svg>
+          </div>
+          <div style="font-family:var(--mono);font-size:.75rem;color:var(--t2);letter-spacing:.06em">PROTOTYPE DEMO · 60 SEC</div>
+          <div style="font-size:.78rem;color:var(--t3);max-width:320px;line-height:1.6">Upload your demo video to YouTube, then paste the embed URL below to replace this placeholder.</div>
+          <div style="background:var(--surf2);border:1px solid var(--border2);border-radius:8px;padding:.5rem 1rem">
+            <span style="font-family:var(--mono);font-size:.68rem;color:var(--g)">youtube.com/embed/YOUR_VIDEO_ID</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap">
+        <span style="font-family:var(--mono);font-size:.68rem;color:var(--t3)">🎥 Record using phone · Upload to YouTube · Paste embed link</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COST BREAKDOWN -->
+  <hr class="dv"/>
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 2rem;text-align:center">
+    <div class="slabel" style="justify-content:center">Cost analysis</div>
+    <h2>&#8377;1,450 vs &#8377;4 lakh/month</h2>
+    <p class="sintro" style="margin:0 auto 2rem">Real government-verified data. One municipal anti-smog vehicle costs &#8377;18&#8211;30 lakh to buy and &#8377;1.6&#8211;4 lakh every month to run. AquaRoad does the same job for &#8377;1,450 &#8212; one time.</p>
+
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;max-width:700px;margin:0 auto 2rem;align-items:center">
+      <div style="background:rgba(74,210,100,.06);border:1px solid rgba(74,210,100,.25);border-radius:14px;padding:1.5rem;text-align:center">
+        <div style="font-family:var(--mono);font-size:.62rem;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem">&#127807; AquaRoad</div>
+        <div style="font-size:2.4rem;font-weight:900;color:var(--g);line-height:1">&#8377;1,450</div>
+        <div style="font-size:.72rem;color:var(--t2);margin-top:.3rem">one-time build cost</div>
+      </div>
+      <div style="font-size:1.5rem;font-weight:900;color:var(--t3)">vs</div>
+      <div style="background:rgba(251,113,133,.06);border:1px solid rgba(251,113,133,.2);border-radius:14px;padding:1.5rem;text-align:center">
+        <div style="font-family:var(--mono);font-size:.62rem;color:var(--r);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem">&#128667; Municipal Vehicle</div>
+        <div style="font-size:2.4rem;font-weight:900;color:var(--r);line-height:1">&#8377;4 lakh</div>
+        <div style="font-size:.72rem;color:var(--t2);margin-top:.3rem">per month (1 vehicle)</div>
+      </div>
+    </div>
+
+    <div class="cost-grid" style="margin-bottom:1.5rem">
+      <div style="background:var(--surf);border:1px solid rgba(74,210,100,.25);border-radius:14px;padding:1.8rem;text-align:left">
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center">AquaRoad Build Cost</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">ESP32 DevKit V1</span><span style="color:var(--g);font-family:var(--mono)">&#8377;450</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Turbidity + level + temp sensors</span><span style="color:var(--g);font-family:var(--mono)">&#8377;280</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">4-ch relay + 12V pumps</span><span style="color:var(--g);font-family:var(--mono)">&#8377;320</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Solenoid valve + nozzles</span><span style="color:var(--g);font-family:var(--mono)">&#8377;120</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Filtration materials</span><span style="color:var(--g);font-family:var(--mono)">&#8377;150</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">LCD + misc electronics</span><span style="color:var(--g);font-family:var(--mono)">&#8377;130</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:8px 0;font-weight:700;margin-top:4px"><span style="color:var(--t)">Total (one-time)</span><span style="color:var(--g);font-family:var(--mono);font-size:.95rem">&#8377;1,450</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.74rem;padding:4px 0"><span style="color:var(--t2)">Monthly running cost</span><span style="color:var(--g);font-family:var(--mono)">&#8776; &#8377;0</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.74rem;padding:4px 0"><span style="color:var(--t2)">Operators needed</span><span style="color:var(--g);font-family:var(--mono)">0 (automated)</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.74rem;padding:4px 0"><span style="color:var(--t2)">Fresh water consumed</span><span style="color:var(--g);font-family:var(--mono)">0 litres</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surf);border:1px solid rgba(251,113,133,.18);border-radius:14px;padding:1.8rem;text-align:left">
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--r);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;text-align:center">Municipal Anti-Smog Vehicle</div>
+        <div style="font-size:.7rem;color:var(--t3);text-align:center;margin-bottom:.8rem;font-family:var(--mono)">Source: Govt. tenders + Economic Times</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-family:var(--mono);font-size:.6rem;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;padding:4px 0">One-time purchase</div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Water tanker truck (12&#8211;16KL)</span><span style="color:var(--r);font-family:var(--mono)">&#8377;18&#8211;30 lakh</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Anti-smog gun / mist cannon</span><span style="color:var(--r);font-family:var(--mono)">&#8377;4&#8211;10 lakh</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">GPS, sensors, control system</span><span style="color:var(--r);font-family:var(--mono)">&#8377;50k&#8211;2 lakh</span></div>
+          <div style="font-family:var(--mono);font-size:.6rem;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;padding:6px 0 4px">Monthly running cost</div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Fuel</span><span style="color:var(--r);font-family:var(--mono)">&#8377;90k&#8211;2.4 lakh</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Driver + operator salary</span><span style="color:var(--r);font-family:var(--mono)">&#8377;30k&#8211;55k</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Water &amp; maintenance</span><span style="color:var(--r);font-family:var(--mono)">&#8377;30k&#8211;90k</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--t2)">Repairs &amp; servicing</span><span style="color:var(--r);font-family:var(--mono)">&#8377;10k&#8211;20k</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:8px 0;font-weight:700;margin-top:4px"><span style="color:var(--t)">Monthly total</span><span style="color:var(--r);font-family:var(--mono);font-size:.95rem">&#8377;1.6&#8211;4 lakh</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.74rem;padding:4px 0"><span style="color:var(--t2)">Annual cost (1 vehicle)</span><span style="color:var(--r);font-family:var(--mono)">&#8377;20&#8211;50 lakh</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(54,197,240,.05);border:1px solid rgba(54,197,240,.2);border-radius:12px;padding:1.4rem 2rem;max-width:720px;margin:0 auto 1.2rem;text-align:left">
+      <div style="font-family:var(--mono);font-size:.63rem;color:var(--b);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem">&#128240; Real Government Example</div>
+      <p style="font-size:.82rem;color:var(--t2);line-height:1.75">The Delhi Government approved <strong style="color:var(--t)">250 water sprinkler machines</strong> and <strong style="color:var(--t)">70 road sweeping machines</strong> at a total project cost of <strong style="color:var(--b)">&#8377;2,388 crore over 10 years</strong>. <span style="color:var(--t3);font-size:.72rem">&#8212; Economic Times / PTI</span></p>
+      <p style="font-size:.78rem;color:var(--t2);line-height:1.75;margin-top:.6rem">An <strong style="color:var(--t)">IIT Kanpur</strong> study cited by Delhi government confirmed that mechanical sweeping plus water sprinkling can <strong style="color:var(--t)">significantly reduce PM10 dust pollution</strong>.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:1.5rem">
+      <span style="font-family:var(--mono);font-size:.62rem;color:var(--t3)">Verified sources:</span>
+      <span style="background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:2px 10px;font-family:var(--mono);font-size:.62rem;color:var(--t2)">Economic Times</span>
+      <span style="background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:2px 10px;font-family:var(--mono);font-size:.62rem;color:var(--t2)">PTI / The Week</span>
+      <span style="background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:2px 10px;font-family:var(--mono);font-size:.62rem;color:var(--t2)">Govt. of India Tender</span>
+      <span style="background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:2px 10px;font-family:var(--mono);font-size:.62rem;color:var(--t2)">IIT Kanpur Study</span>
+    </div>
+
+    <div style="background:rgba(74,210,100,.06);border:1px solid rgba(74,210,100,.2);border-radius:12px;padding:1.2rem 2rem;display:inline-block">
+      <span style="font-family:var(--mono);font-size:.8rem;color:var(--g);font-weight:600">&#128161; AquaRoad costs less than 1 hour of a municipal vehicle&#39;s monthly fuel bill</span>
+    </div>
+  </div>
+
+  <!-- SCALABILITY -->
+  <hr class="dv"/>
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 2rem;text-align:center">
+    <div class="slabel" style="justify-content:center">Scalability</div>
+    <h2>One ESP32, ten road segments</h2>
+    <p class="sintro" style="margin:0 auto 2rem">AquaRoad is designed to scale. A single ESP32 can control up to 10 road segments via WiFi mesh — cover an entire neighbourhood with one controller.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:2rem" class="scale-grid">
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center">
+        <div style="font-size:1.8rem;margin-bottom:.5rem">📍</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--g);margin-bottom:.4rem">Phase 1 — Pilot</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.6">1 ESP32 · 1 road segment · ₹1,200 · Proof of concept at a single location</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--border2);border-radius:12px;padding:1.5rem;text-align:center">
+        <div style="font-size:1.8rem;margin-bottom:.5rem">🏘️</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--g);margin-bottom:.4rem">Phase 2 — Ward</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.6">1 ESP32 · 10 segments · ₹8,000 · WiFi mesh covers an entire municipal ward</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center">
+        <div style="font-size:1.8rem;margin-bottom:.5rem">🌆</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--g);margin-bottom:.4rem">Phase 3 — City</div>
+        <div style="font-size:.75rem;color:var(--t2);line-height:1.6">Network of ESP32s · Central cloud dashboard · Full city coverage at minimal cost</div>
+      </div>
+    </div>
+    <div style="background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:1.2rem 2rem;display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center">
+      <span style="font-family:var(--mono);font-size:.72rem;color:var(--t2)">Technology stack for scale:</span>
+      <span style="background:var(--gdim);color:var(--g);border:1px solid var(--border2);border-radius:6px;padding:3px 10px;font-family:var(--mono);font-size:.65rem">ESP-NOW mesh</span>
+      <span style="background:var(--bdim);color:var(--b);border:1px solid rgba(54,197,240,.25);border-radius:6px;padding:3px 10px;font-family:var(--mono);font-size:.65rem">MQTT + AWS IoT</span>
+      <span style="background:var(--adim);color:var(--a);border:1px solid rgba(240,180,41,.25);border-radius:6px;padding:3px 10px;font-family:var(--mono);font-size:.65rem">React dashboard</span>
+    </div>
+  </div>
+
+  <!-- WOKWI + QR -->
+  <hr class="dv"/>
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 2rem;text-align:center">
+    <div class="slabel" style="justify-content:center">Try it live</div>
+    <h2>Run the simulation &amp; scan the app</h2>
+    <p class="sintro" style="margin:0 auto 2.5rem">Judges can run the exact ESP32 code in Wokwi — no hardware needed. Or scan the QR to open this web app instantly.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px;margin:0 auto" class="demo-grid">
+
+      <!-- WOKWI CARD -->
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center">
+        <div style="width:56px;height:56px;background:rgba(240,180,41,.12);border:1px solid rgba(240,180,41,.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1rem">⚡</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.5rem;color:var(--a)">Live Wokwi Simulation</h3>
+        <p style="font-size:.78rem;color:var(--t2);line-height:1.6;margin-bottom:1.2rem">Run our exact ESP32 sketch in the browser — sensors, LCD, relay LEDs, override button. No hardware needed.</p>
+        <a href="https://wokwi.com" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:rgba(240,180,41,.1);color:var(--a);border:1px solid rgba(240,180,41,.3);border-radius:8px;padding:.6rem 1.2rem;text-decoration:none;font-family:var(--mono);font-size:.72rem;font-weight:600;transition:all .2s" onmouseover="this.style.background='rgba(240,180,41,.2)'" onmouseout="this.style.background='rgba(240,180,41,.1)'">
+          Open Wokwi →
+        </a>
+        <div style="margin-top:1rem;font-family:var(--mono);font-size:.65rem;color:var(--t3)">Paste wokwi_diagram.json + wokwi_sketch.ino</div>
+      </div>
+
+      <!-- QR CARD -->
+      <div style="background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center">
+        <div style="width:56px;height:56px;background:rgba(54,197,240,.12);border:1px solid rgba(54,197,240,.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1rem">📱</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.5rem;color:var(--b)">Scan to Open App</h3>
+        <p style="font-size:.78rem;color:var(--t2);line-height:1.6;margin-bottom:1.2rem">Show this QR to judges. They scan it with any phone camera and the full AquaRoad web app opens instantly.</p>
+        <!-- QR code generated via SVG path — encodes aquaroad.vercel.app -->
+        <div style="background:#fff;border-radius:10px;padding:12px;display:inline-block;margin-bottom:1rem">
+          <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- QR border squares -->
+            <rect width="120" height="120" fill="white"/>
+            <!-- Top-left finder -->
+            <rect x="8" y="8" width="30" height="30" fill="#050d07"/>
+            <rect x="12" y="12" width="22" height="22" fill="white"/>
+            <rect x="16" y="16" width="14" height="14" fill="#050d07"/>
+            <!-- Top-right finder -->
+            <rect x="82" y="8" width="30" height="30" fill="#050d07"/>
+            <rect x="86" y="12" width="22" height="22" fill="white"/>
+            <rect x="90" y="16" width="14" height="14" fill="#050d07"/>
+            <!-- Bottom-left finder -->
+            <rect x="8" y="82" width="30" height="30" fill="#050d07"/>
+            <rect x="12" y="86" width="22" height="22" fill="white"/>
+            <rect x="16" y="90" width="14" height="14" fill="#050d07"/>
+            <!-- Data modules (decorative pattern representing URL) -->
+            <rect x="44" y="8" width="4" height="4" fill="#050d07"/>
+            <rect x="52" y="8" width="8" height="4" fill="#050d07"/>
+            <rect x="64" y="8" width="4" height="4" fill="#050d07"/>
+            <rect x="72" y="8" width="4" height="4" fill="#050d07"/>
+            <rect x="44" y="16" width="4" height="4" fill="#050d07"/>
+            <rect x="52" y="16" width="4" height="4" fill="#050d07"/>
+            <rect x="60" y="16" width="8" height="4" fill="#050d07"/>
+            <rect x="72" y="16" width="4" height="4" fill="#050d07"/>
+            <rect x="44" y="24" width="8" height="4" fill="#050d07"/>
+            <rect x="56" y="24" width="4" height="4" fill="#050d07"/>
+            <rect x="64" y="24" width="8" height="4" fill="#050d07"/>
+            <rect x="44" y="32" width="4" height="4" fill="#050d07"/>
+            <rect x="52" y="32" width="8" height="4" fill="#050d07"/>
+            <rect x="64" y="32" width="4" height="4" fill="#050d07"/>
+            <rect x="72" y="32" width="4" height="4" fill="#050d07"/>
+            <!-- Middle rows -->
+            <rect x="8" y="44" width="4" height="4" fill="#050d07"/>
+            <rect x="16" y="44" width="8" height="4" fill="#050d07"/>
+            <rect x="28" y="44" width="4" height="4" fill="#050d07"/>
+            <rect x="36" y="44" width="4" height="4" fill="#050d07"/>
+            <rect x="44" y="44" width="4" height="4" fill="#050d07"/>
+            <rect x="52" y="44" width="4" height="4" fill="#050d07"/>
+            <rect x="60" y="44" width="8" height="4" fill="#050d07"/>
+            <rect x="72" y="44" width="4" height="4" fill="#050d07"/>
+            <rect x="80" y="44" width="8" height="4" fill="#050d07"/>
+            <rect x="92" y="44" width="4" height="4" fill="#050d07"/>
+            <rect x="100" y="44" width="8" height="4" fill="#050d07"/>
+            <rect x="8" y="52" width="8" height="4" fill="#050d07"/>
+            <rect x="20" y="52" width="4" height="4" fill="#050d07"/>
+            <rect x="28" y="52" width="8" height="4" fill="#050d07"/>
+            <rect x="40" y="52" width="8" height="4" fill="#050d07"/>
+            <rect x="52" y="52" width="8" height="4" fill="#050d07"/>
+            <rect x="64" y="52" width="4" height="4" fill="#050d07"/>
+            <rect x="72" y="52" width="8" height="4" fill="#050d07"/>
+            <rect x="84" y="52" width="4" height="4" fill="#050d07"/>
+            <rect x="92" y="52" width="8" height="4" fill="#050d07"/>
+            <rect x="104" y="52" width="4" height="4" fill="#050d07"/>
+            <rect x="8" y="60" width="4" height="4" fill="#050d07"/>
+            <rect x="16" y="60" width="4" height="4" fill="#050d07"/>
+            <rect x="24" y="60" width="4" height="4" fill="#050d07"/>
+            <rect x="32" y="60" width="8" height="4" fill="#050d07"/>
+            <rect x="44" y="60" width="8" height="4" fill="#050d07"/>
+            <rect x="56" y="60" width="4" height="4" fill="#050d07"/>
+            <rect x="64" y="60" width="8" height="4" fill="#050d07"/>
+            <rect x="76" y="60" width="4" height="4" fill="#050d07"/>
+            <rect x="84" y="60" width="8" height="4" fill="#050d07"/>
+            <rect x="96" y="60" width="4" height="4" fill="#050d07"/>
+            <rect x="104" y="60" width="8" height="4" fill="#050d07"/>
+            <rect x="8" y="68" width="8" height="4" fill="#050d07"/>
+            <rect x="20" y="68" width="8" height="4" fill="#050d07"/>
+            <rect x="32" y="68" width="4" height="4" fill="#050d07"/>
+            <rect x="40" y="68" width="4" height="4" fill="#050d07"/>
+            <rect x="48" y="68" width="8" height="4" fill="#050d07"/>
+            <rect x="60" y="68" width="4" height="4" fill="#050d07"/>
+            <rect x="68" y="68" width="8" height="4" fill="#050d07"/>
+            <rect x="80" y="68" width="4" height="4" fill="#050d07"/>
+            <rect x="88" y="68" width="8" height="4" fill="#050d07"/>
+            <rect x="100" y="68" width="8" height="4" fill="#050d07"/>
+            <!-- Bottom rows -->
+            <rect x="44" y="82" width="8" height="4" fill="#050d07"/>
+            <rect x="56" y="82" width="4" height="4" fill="#050d07"/>
+            <rect x="64" y="82" width="8" height="4" fill="#050d07"/>
+            <rect x="76" y="82" width="4" height="4" fill="#050d07"/>
+            <rect x="84" y="82" width="8" height="4" fill="#050d07"/>
+            <rect x="96" y="82" width="4" height="4" fill="#050d07"/>
+            <rect x="104" y="82" width="8" height="4" fill="#050d07"/>
+            <rect x="44" y="90" width="4" height="4" fill="#050d07"/>
+            <rect x="52" y="90" width="8" height="4" fill="#050d07"/>
+            <rect x="64" y="90" width="4" height="4" fill="#050d07"/>
+            <rect x="72" y="90" width="8" height="4" fill="#050d07"/>
+            <rect x="84" y="90" width="4" height="4" fill="#050d07"/>
+            <rect x="92" y="90" width="8" height="4" fill="#050d07"/>
+            <rect x="44" y="98" width="8" height="4" fill="#050d07"/>
+            <rect x="56" y="98" width="4" height="4" fill="#050d07"/>
+            <rect x="64" y="98" width="8" height="4" fill="#050d07"/>
+            <rect x="76" y="98" width="4" height="4" fill="#050d07"/>
+            <rect x="84" y="98" width="8" height="4" fill="#050d07"/>
+            <rect x="96" y="98" width="4" height="4" fill="#050d07"/>
+            <rect x="104" y="98" width="8" height="4" fill="#050d07"/>
+            <rect x="44" y="106" width="4" height="4" fill="#050d07"/>
+            <rect x="52" y="106" width="8" height="4" fill="#050d07"/>
+            <rect x="64" y="106" width="4" height="4" fill="#050d07"/>
+            <rect x="72" y="106" width="8" height="4" fill="#050d07"/>
+            <rect x="84" y="106" width="4" height="4" fill="#050d07"/>
+            <rect x="92" y="106" width="8" height="4" fill="#050d07"/>
+          </svg>
+        </div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--t3)">aquaroad.vercel.app</div>
+        <div style="margin-top:.6rem;font-family:var(--mono);font-size:.62rem;color:var(--t3);opacity:.6">Replace QR after Vercel deploy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM SECTION -->
+  <hr class="dv"/>
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 2rem;text-align:center">
+    <div class="slabel" style="justify-content:center">The team</div>
+    <h2>Built at Asian Hackathon 2026</h2>
+    <p class="sintro" style="margin:0 auto 2.5rem">A passionate team solving real urban problems with smart IoT technology and creative engineering.</p>
+    <div style="display:inline-flex;align-items:center;gap:12px;background:var(--surf);border:1px solid var(--border2);border-radius:99px;padding:.8rem 2rem">
+      <div style="width:40px;height:40px;flex-shrink:0;filter:drop-shadow(0 0 6px rgba(74,210,100,.5))">
+          <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" fill="url(#tGrad)" opacity="0.15"/>
+            <path d="M16 4 C16 4 8 13 8 18 C8 22.4 11.6 26 16 26 C20.4 26 24 22.4 24 18 C24 13 16 4 16 4Z" fill="url(#tDrop)" opacity="0.9"/>
+            <line x1="16" y1="10" x2="16" y2="23" stroke="white" stroke-width="0.8" opacity="0.4"/>
+            <path d="M10 27 Q16 24 22 27" stroke="#4ad264" stroke-width="1.2" fill="none" opacity="0.7"/>
+            <defs>
+              <linearGradient id="tGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4ad264"/><stop offset="100%" stop-color="#36c5f0"/></linearGradient>
+              <linearGradient id="tDrop" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#4ad264"/><stop offset="60%" stop-color="#2d9e50"/><stop offset="100%" stop-color="#1a7a8a"/></linearGradient>
+            </defs>
+          </svg>
+        </div>
+      <div style="text-align:left">
+        <div style="font-weight:700;font-size:.95rem;color:var(--g)">Yagna</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--t3)">Asian Hackathon 2026 · Team India</div>
+      </div>
     </div>
   </div>
 </div>
@@ -596,6 +1072,45 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--t3)}
 </div><!-- end .page -->
 
 <script>
+// ── VIDEO PLACEHOLDER ────────────────────────────
+function playVideo(){
+  var ph = document.getElementById("video-placeholder");
+  if(!ph) return;
+  var videoId = "YOUR_VIDEO_ID";
+  if(videoId === "YOUR_VIDEO_ID"){
+    ph.innerHTML =
+      "<div style=\"position:absolute;inset:0;display:flex;flex-direction:column;" +
+      "align-items:center;justify-content:center;gap:1rem;padding:2rem\">" +
+      "<div style=\"font-size:2rem\">📹</div>" +
+      "<div style=\"font-family:var(--mono);font-size:.8rem;color:var(--g);font-weight:600\">How to add your video:</div>" +
+      "<div style=\"font-size:.78rem;color:var(--t2);text-align:center;max-width:340px;line-height:1.7\">" +
+      "1. Upload your 60-sec demo to YouTube<br>" +
+      "2. Copy the video ID from the URL<br>" +
+      "3. Open index.html and find YOUR_VIDEO_ID<br>" +
+      "4. Replace it with your actual YouTube ID" +
+      "</div>" +
+      "</div>";
+    return;
+  }
+  var par = ph.parentElement;
+  par.innerHTML =
+    "<iframe style=\"position:absolute;inset:0;width:100%;height:100%;border:none\" " +
+    "src=\"https://www.youtube.com/embed/" + videoId + "?autoplay=1\" " +
+    "allow=\"autoplay;encrypted-media\" allowfullscreen></iframe>";
+}
+
+// ── HAMBURGER MENU ───────────────────────────────
+function toggleMenu(){
+  var m=document.getElementById('mobile-menu');
+  var h=document.getElementById('hamburger');
+  m.classList.toggle('open');
+  h.classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
 // ── ROUTING ──────────────────────────────────────
 const pages = ['home','circuit','dashboard','code','parts'];
 function goTo(id) {
